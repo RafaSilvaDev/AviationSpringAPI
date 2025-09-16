@@ -33,7 +33,7 @@ public class AirportControllerTest {
     }
 
     @Test
-    public void testGetAirportByIcao_Success() throws Exception {
+    public void shouldGetAirportByIcaoSuccessfully() throws Exception {
         when(airportService.getAirport("KJFK")).thenReturn(TestUtils.airportServiceGetAirportMockObject());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/airports/KJFK"))
@@ -44,7 +44,7 @@ public class AirportControllerTest {
     }
 
     @Test
-    public void testGetAirportByIcao_NotFound() throws Exception {
+    public void shouldThrowNotFoundForInvalidIcao() throws Exception {
         when(airportService.getAirport("INVALID")).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Airport not found."));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/airports/INVALID"))
