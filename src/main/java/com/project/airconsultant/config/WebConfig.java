@@ -1,8 +1,15 @@
 package com.project.airconsultant.config;
 
+import com.project.airconsultant.repository.ICacheDataRepository;
+import com.project.airconsultant.service.cache.CacheDataService;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.util.Timeout;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -16,7 +23,11 @@ import java.time.Duration;
 
 @Configuration
 @EnableRetry
+@EnableCaching
 public class WebConfig {
+
+    @Autowired
+    private ICacheDataRepository cacheDataRepository;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -41,5 +52,15 @@ public class WebConfig {
         retryTemplate.setBackOffPolicy(backOffPolicy);
 
         return retryTemplate;
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        return new SimpleCacheManager() {
+            @Override
+            public Cache getCache(String name) {
+                return new CacheDataService(cacheDataRepository, name);
+            }
+        };
     }
 }

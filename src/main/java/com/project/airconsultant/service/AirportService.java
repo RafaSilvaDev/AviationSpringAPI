@@ -1,7 +1,7 @@
 package com.project.airconsultant.service;
 
 import com.project.airconsultant.model.Airport;
-import com.project.airconsultant.repository.AirportRepository;
+import com.project.airconsultant.repository.IAirportRepository;
 import com.project.airconsultant.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -17,7 +17,7 @@ import java.util.Objects;
 @Service
 public class AirportService implements IAirportService {
     @Autowired
-    private AirportRepository airportRepository;
+    private IAirportRepository IAirportRepository;
 
     @Autowired
     private CacheManager cacheManager;
@@ -25,9 +25,9 @@ public class AirportService implements IAirportService {
     @Override
     public void storeAirport(Airport airport) {
         String airportIcao = airport.getIcaoCode();
-        Airport lookUpForAirport = airportRepository.findAirportByIcaoCode(airportIcao);
+        Airport lookUpForAirport = IAirportRepository.findAirportByIcaoCode(airportIcao);
         if(lookUpForAirport == null) {
-            airportRepository.save(airport);
+            IAirportRepository.save(airport);
         } else {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT,
@@ -43,7 +43,7 @@ public class AirportService implements IAirportService {
         String airportIcao = icaoParam.toUpperCase();
 
         simulateSlowService();
-        Airport foundAirport = airportRepository.findAirportByIcaoCode(airportIcao);
+        Airport foundAirport = IAirportRepository.findAirportByIcaoCode(airportIcao);
         if (foundAirport == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,

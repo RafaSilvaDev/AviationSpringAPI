@@ -1,7 +1,7 @@
 package com.project.airconsultant.unit.service;
 
 import com.project.airconsultant.model.Airport;
-import com.project.airconsultant.repository.AirportRepository;
+import com.project.airconsultant.repository.IAirportRepository;
 import com.project.airconsultant.service.AirportService;
 import com.project.airconsultant.unit.testutils.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class AirportServiceTest {
     private AirportService airportService;
 
     @Mock
-    private AirportRepository airportRepository;
+    private IAirportRepository IAirportRepository;
 
     @Test
     void storeAirport() {
@@ -29,7 +29,7 @@ class AirportServiceTest {
 
     @Test
     void shouldReturnAirportByIcao() {
-        when(airportRepository.findAirportByIcaoCode("KJFK")).thenReturn(TestUtils.airportServiceGetAirportMockObject());
+        when(IAirportRepository.findAirportByIcaoCode("KJFK")).thenReturn(TestUtils.airportServiceGetAirportMockObject());
         Airport airport = airportService.findByIcao("KJFK");
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
