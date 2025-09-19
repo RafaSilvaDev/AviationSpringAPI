@@ -19,7 +19,9 @@ services:
     depends_on:
       - database
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/rgc
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/airportdb
       - SPRING_DATASOURCE_USERNAME=rgc
       - SPRING_DATASOURCE_PASSWORD=rgc123
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8090:8090"
