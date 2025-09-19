@@ -44,17 +44,10 @@ Dentro da pasta do projeto, execute o seguinte comando para empacotar o projeto 
 mvn clean package -DskipTests
 ```
 
-### 3. Construíndo containeres
-Copie o projeto empacotado para dentro da pasta "/docker" com o seguinte comando:
+### 3. Rodando o projeto
+Agora, basta copiar o projeto empacotado para a pasta "/docker", acessá-la e usar o "docker compose" para construir os containeres necessários para a aplicação funcionar corretamente e iniciá-los:
 ```bash
 cp target/airconsultant-0.0.1-SNAPSHOT.jar docker
-```
-
-Após isso, basta acessar a pasta "/docker" e rodar os containeres
-
-### 4. Rodando o projeto
-Após copiar o projeto empacotado para a pasta "/docker", basta usar o "docker compose" para construir os containeres necessários para a aplicação funcionar corretamente e iniciá-los:
-```bash
 cd /docker
 docker compose up --build -d
 ```
