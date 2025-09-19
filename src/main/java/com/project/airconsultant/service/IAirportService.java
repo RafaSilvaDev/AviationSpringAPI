@@ -2,6 +2,6 @@ package com.project.airconsultant.service;
 
 import com.project.airconsultant.model.Airport;
 
-public interface IAirportService {
-    Airport getAirport(String icaoParam);
+public interface IAirportService extends ICommonService<Airport, Long>{
+    void storeAirport(Airport airport);
 }

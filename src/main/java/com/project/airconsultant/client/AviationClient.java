@@ -1,6 +1,6 @@
 package com.project.airconsultant.client;
 
-import com.project.airconsultant.model.Airport;
+import com.project.airconsultant.model.AviationAirport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -27,7 +27,7 @@ public class AviationClient implements IAviationClient {
     }
 
     @Override
-    public Map<String, List<Airport>> getAirportByIcao(String airportIcao) {
+    public Map<String, List<AviationAirport>> getAirportByIcao(String airportIcao) {
         String url = UriComponentsBuilder.fromUriString(BASE_URL + "/airports")
                 .queryParam("apt", airportIcao)
                 .toUriString();
@@ -36,7 +36,7 @@ public class AviationClient implements IAviationClient {
                     url,
                     HttpMethod.GET,
                     null,
-                    new ParameterizedTypeReference<Map<String, List<Airport>>>() {
+                    new ParameterizedTypeReference<Map<String, List<AviationAirport>>>() {
                     }
             ).getBody());
         } catch (Exception e) {
@@ -47,3 +47,13 @@ public class AviationClient implements IAviationClient {
         }
     }
 }
+
+
+/*
+* DONE banco postgres 15/16 -> docker
+* DONE tabela cache banco -> verificar requests
+* DONE verificar se o retorno da API veio de cache (POST e GET)
+* DONE WITH METHOD QUERY method query, hql, criteria e native query (spring data)
+* DONE duplicar endpoint para receber um objeto e validar o mesmo com Bean validation -> POST
+* DONE repository, service e controller com generics
+* */

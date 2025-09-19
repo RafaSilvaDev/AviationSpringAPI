@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:16
+    container_name: pgairportdb
+    restart: always
+    environment:
+      POSTGRES_DB: airportdb
+      POSTGRES_USER: rgc
+      POSTGRES_PASSWORD: rgc123
+    ports:
+      - "5432:5432"
+
+  app:
+    image: 'airconsultant:latest'
+    build:
+      context: .
+    container_name: airconsultant_app
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/rgc
+      - SPRING_DATASOURCE_USERNAME=rgc
+      - SPRING_DATASOURCE_PASSWORD=rgc123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update

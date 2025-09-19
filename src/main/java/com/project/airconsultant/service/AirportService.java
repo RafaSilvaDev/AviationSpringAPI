@@ -1,33 +1,71 @@
 package com.project.airconsultant.service;
 
-import com.project.airconsultant.client.AviationClient;
 import com.project.airconsultant.model.Airport;
+import com.project.airconsultant.repository.AirportRepository;
+import com.project.airconsultant.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 
 @Service
 public class AirportService implements IAirportService {
-    private final AviationClient aviationClient;
+    @Autowired
+    private AirportRepository airportRepository;
 
     @Autowired
-    public AirportService(AviationClient aviationClient) {
-        this.aviationClient = aviationClient;
+    private CacheManager cacheManager;
+
+    @Override
+    public void storeAirport(Airport airport) {
+        String airportIcao = airport.getIcaoCode();
+        Airport lookUpForAirport = airportRepository.findAirportByIcaoCode(airportIcao);
+        if(lookUpForAirport == null) {
+            airportRepository.save(airport);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Airport with ICAO: " + airportIcao + " already exists in data source."
+            );
+        }
+
     }
 
-    public Airport getAirport(String icaoParam) {
+    @Override
+    @Cacheable(value = Constants.AIRPORTS_ENDPOINT_VALUE, key = "#icaoParam")
+    public Airport findByIcao(String icaoParam) {
         String airportIcao = icaoParam.toUpperCase();
-        
-        Map<String, List<Airport>> airportResponse = aviationClient.getAirportByIcao(airportIcao);
-        if (airportResponse.get(airportIcao) != null && !airportResponse.get(airportIcao).isEmpty()) {
-            return airportResponse.get(airportIcao).get(0);
+
+        simulateSlowService();
+        Airport foundAirport = airportRepository.findAirportByIcaoCode(airportIcao);
+        if (foundAirport == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Airport not found."
+            );
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Airport not found.");
+            return foundAirport;
+        }
+    }
+
+    @Override
+    @CacheEvict(Constants.AIRPORTS_ENDPOINT_VALUE)
+    public void evictAllCacheValues(String cacheName) {
+        Objects.requireNonNull(cacheManager.getCache(cacheName)).clear();
+    }
+
+    private void simulateSlowService() {
+        try {
+            long time = 3000L;
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
         }
     }
 }

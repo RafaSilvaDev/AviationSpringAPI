@@ -9,8 +9,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.backoff.FixedBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.retry.support.RetryTemplate;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 
