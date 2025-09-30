@@ -2,13 +2,17 @@ package com.project.airconsultant.unit.testutils;
 
 import com.project.airconsultant.model.Airport;
 import com.project.airconsultant.model.AviationAirport;
+import com.project.airconsultant.model.Plane;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestUtils {
     private static AviationAirport aviationAirport;
     private static Airport airport;
 
     public static AviationAirport aviationAirportServiceGetAviationAirportMockObject() {
-        if(aviationAirport == null) {
+        if (aviationAirport == null) {
             aviationAirport = new AviationAirport();
             aviationAirport.setSiteNumber("15793.*A");
             aviationAirport.setType("AIRPORT");
@@ -56,7 +60,7 @@ public class TestUtils {
     }
 
     public static Airport airportServiceGetAirportMockObject() {
-        if(airport == null) {
+        if (airport == null) {
             airport = new Airport();
             airport.setId(1L);
             airport.setSiteNumber("15793.*A");
@@ -99,9 +103,82 @@ public class TestUtils {
             airport.setUnicom("122.950");
             airport.setCtaf("");
             airport.setEffectiveDate("11/04/2021");
+            airport.setPlanes(generateTestPlanes());
         }
 
         return airport;
+    }
+
+    public static List<Object[]> airportServiceGetAirportNativeQueryMockObject() {
+        if (airport == null) {
+            airport = airportServiceGetAirportMockObject();
+        }
+        List<Object[]> rows = new ArrayList<>();
+        for (Plane plane : airport.getPlanes()) {
+            Object[] row = new Object[]{
+                    airport.getId(),
+                    airport.getSiteNumber(),
+                    airport.getType(),
+                    airport.getName(),
+                    airport.getIataCode(),
+                    airport.getIcaoCode(),
+                    airport.getDistrictOffice(),
+                    airport.getState(),
+                    airport.getStateFull(),
+                    airport.getCounty(),
+                    airport.getCity(),
+                    airport.getOwnership(),
+                    airport.getUse(),
+                    airport.getManager(),
+                    airport.getManagerPhone(),
+                    airport.getLatitude(),
+                    airport.getLatitudeSeconds(),
+                    airport.getLongitude(),
+                    airport.getLongitudeSeconds(),
+                    airport.getElevation(),
+                    airport.getMagneticVariation(),
+                    airport.getTpa(),
+                    airport.getVfrSectional(),
+                    airport.getBoundaryArtcc(),
+                    airport.getBoundaryArtccName(),
+                    airport.getResponsibleArtcc(),
+                    airport.getResponsibleArtccName(),
+                    airport.getFssPhoneNumber(),
+                    airport.getFssPhoneNumberTollFree(),
+                    airport.getNotamFacilityIdent(),
+                    airport.getStatus(),
+                    airport.getCertificationTypeDate(),
+                    airport.getCustomsAirportOfEntry(),
+                    airport.getMilitaryJointUse(),
+                    airport.getMilitaryLanding(),
+                    airport.getLightingSchedule(),
+                    airport.getBeaconSchedule(),
+                    airport.getControlTower(),
+                    airport.getUnicom(),
+                    airport.getCtaf(),
+                    airport.getEffectiveDate(),
+                    plane.getId(),
+                    plane.getCode(),
+                    plane.getModel()
+            };
+
+            rows.add(row);
+        }
+        return rows;
+    }
+
+    private static List<Plane> generateTestPlanes() {
+        List<Plane> planes = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            Plane plane = new Plane();
+            plane.setId((long) i);
+            plane.setModel("Test Model " + i);
+            plane.setCode(String.valueOf(i));
+
+            planes.add(plane);
+        }
+
+        return planes;
     }
 
 }

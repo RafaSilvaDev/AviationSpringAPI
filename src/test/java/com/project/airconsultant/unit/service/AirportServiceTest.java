@@ -9,6 +9,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.cache.CacheManager;
+
+import java.util.Optional;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -20,7 +24,13 @@ class AirportServiceTest {
     private AirportService airportService;
 
     @Mock
-    private IAirportRepository IAirportRepository;
+    private IAirportRepository airportRepository;
+
+    @Mock
+    private CacheManager cacheManager;
+
+    @Mock
+    private Random random;
 
     @Test
     void storeAirport() {
@@ -29,8 +39,41 @@ class AirportServiceTest {
 
     @Test
     void shouldReturnAirportByIcao() {
-        when(IAirportRepository.findAirportByIcaoCode("KJFK")).thenReturn(TestUtils.airportServiceGetAirportMockObject());
+        when(airportRepository.findAirportByIcaoCode("KJFK")).thenReturn(TestUtils.airportServiceGetAirportMockObject());
         Airport airport = airportService.findByIcao("KJFK");
+        assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
+    }
+
+    @Test
+    void shouldReturnAirportByIdWithMethodQuery() {
+        when(random.nextInt(4)).thenReturn(0);
+        when(airportRepository.findById(10L)).thenReturn(Optional.of(TestUtils.airportServiceGetAirportMockObject()));
+        Airport airport = airportService.findById(10L);
+
+        assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
+    }
+    @Test
+    void shouldReturnAirportByIdWithHQL() {
+        when(random.nextInt(4)).thenReturn(1);
+        when(airportRepository.findByIdWithPlanesHQL(10L)).thenReturn(Optional.of(TestUtils.airportServiceGetAirportMockObject()));
+        Airport airport = airportService.findById(10L);
+
+        assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
+    }
+    @Test
+    void shouldReturnAirportByIdWithCriteria() {
+        when(random.nextInt(4)).thenReturn(2);
+        when(airportRepository.findAirportById(10L)).thenReturn(Optional.of(TestUtils.airportServiceGetAirportMockObject()));
+        Airport airport = airportService.findById(10L);
+
+        assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
+    }
+    @Test
+    void shouldReturnAirportByIdWithNativeQuery() {
+        when(random.nextInt(4)).thenReturn(3);
+        when(airportRepository.findByIdWithPlanesNative(10L)).thenReturn(TestUtils.airportServiceGetAirportNativeQueryMockObject());
+        Airport airport = airportService.findById(10L);
+
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
 }

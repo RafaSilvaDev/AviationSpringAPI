@@ -20,6 +20,7 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
+import java.util.Random;
 
 @Configuration
 @EnableRetry
@@ -62,5 +63,10 @@ public class WebConfig {
                 return new CacheDataService(cacheDataRepository, name);
             }
         };
+    }
+
+    @Bean
+    public Random randon() {
+        return new Random();
     }
 }

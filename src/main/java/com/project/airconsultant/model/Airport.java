@@ -1,10 +1,8 @@
 package com.project.airconsultant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,14 +11,18 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity(name = "airport")
+@NamedEntityGraph(name = "airport-with-planes", attributeNodes = @NamedAttributeNode("planes"))
 public class Airport implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull(message = "Attribute 'site_number' must be informed.")
@@ -184,4 +186,7 @@ public class Airport implements Serializable {
     @NotNull(message = "Attribute 'effective_date' must be informed.")
     @JsonProperty("effective_date")
     private String effectiveDate;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Plane> planes = new ArrayList<>();
 }

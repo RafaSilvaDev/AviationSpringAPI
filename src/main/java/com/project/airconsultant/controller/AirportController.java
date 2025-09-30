@@ -20,6 +20,11 @@ public class AirportController {
         return airportService.findByIcao(icao);
     }
 
+    @GetMapping("/id/{id}")
+    public Airport getStoredAirportById(@PathVariable(value = "id") Long id) {
+        return airportService.findById(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void storeAirport(@RequestBody @Valid Airport airport) {
@@ -29,5 +34,11 @@ public class AirportController {
     @PostMapping("/cache")
     public void clearAirportsCache() {
         airportService.evictAllCacheValues(Constants.AIRPORTS_ENDPOINT_VALUE);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAirport(@PathVariable(value = "id") Long id) {
+        airportService.deleteAirport(id);
     }
 }
