@@ -61,7 +61,7 @@ public class CustomMappers {
         }
 
         Plane plane = new Plane();
-        plane.setId(((Number) row[41]).longValue());
+        plane.setId((Long) row[41]);
         plane.setCode((String) row[42]);
         plane.setModel((String) row[43]);
 

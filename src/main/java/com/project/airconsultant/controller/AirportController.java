@@ -27,8 +27,8 @@ public class AirportController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void storeAirport(@RequestBody @Valid Airport airport) {
-        airportService.storeAirport(airport);
+    public Airport storeAirport(@RequestBody @Valid Airport airport) {
+        return airportService.storeAirport(airport);
     }
 
     @PostMapping("/cache")

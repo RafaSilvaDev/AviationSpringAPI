@@ -28,12 +28,12 @@ public class AirportService implements IAirportService {
     private CacheManager cacheManager;
 
     @Override
-    public void storeAirport(Airport airport) {
+    public Airport storeAirport(Airport airport) {
         String airportIcao = airport.getIcaoCode();
         Airport lookUpForAirport = airportRepository.findAirportByIcaoCode(airportIcao);
         if (lookUpForAirport == null) {
             airport.setPlanes(generateRandomPlanes());
-            airportRepository.save(airport);
+            return airportRepository.save(airport);
         } else {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Airport with ICAO: " + airportIcao + " already exists in data source.");
         }
@@ -44,7 +44,10 @@ public class AirportService implements IAirportService {
     public void deleteAirport(Long id) {
         Airport airportToBeDeleted = airportRepository.findById(id).orElse(null);
         if (airportToBeDeleted == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Airport not found.");
-        else airportRepository.delete(airportToBeDeleted);
+        else {
+            airportRepository.delete(airportToBeDeleted);
+            evictAllCacheValues(Constants.AIRPORTS_ENDPOINT_VALUE);
+        }
     }
 
     @Override
@@ -106,7 +109,7 @@ public class AirportService implements IAirportService {
         if (foundAirport.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Airport not found.");
         } else {
-            //forcing hibernate to load planes in case of Criteria, bypassing the lazy loading of airports without planes
+            //forcing hibernate to load planes in case of Native Query
             foundAirport.get().getPlanes().size();
             return foundAirport.get();
         }

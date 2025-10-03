@@ -22,7 +22,7 @@ public interface IAirportRepository extends JpaRepository<Airport, Long>, Airpor
     Optional<Airport> findByIdWithPlanesHQL(Long id);
 
     @Query(value = """
-    SELECT a.*, p.*
+    SELECT a, p
     FROM airport a
     LEFT JOIN airport_planes ap ON a.id = ap.airport_id
     LEFT JOIN plane p ON p.id=ap.planes_id

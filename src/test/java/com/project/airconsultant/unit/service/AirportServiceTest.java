@@ -4,18 +4,24 @@ import com.project.airconsultant.model.Airport;
 import com.project.airconsultant.repository.IAirportRepository;
 import com.project.airconsultant.service.AirportService;
 import com.project.airconsultant.unit.testutils.TestUtils;
+import com.project.airconsultant.util.Constants;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cache.CacheManager;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AirportServiceTest {
@@ -27,14 +33,15 @@ class AirportServiceTest {
     private IAirportRepository airportRepository;
 
     @Mock
-    private CacheManager cacheManager;
-
-    @Mock
     private Random random;
 
     @Test
-    void storeAirport() {
+    void shouldStoreAirport() {
+        when(airportRepository.save(any(Airport.class))).thenReturn(TestUtils.airportServiceGetAirportMockObject());
 
+        Airport airport = airportService.storeAirport(TestUtils.airportServiceSaveAirportMockObject());
+
+        assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
 
     @Test
@@ -45,6 +52,17 @@ class AirportServiceTest {
     }
 
     @Test
+    void shouldThrowNotFoundForInvalidIcao() {
+        when(airportRepository.findAirportByIcaoCode("INVALID")).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Airport not found."));
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            airportRepository.findAirportByIcaoCode("INVALID");
+        });
+
+        assertEquals("Airport not found.", exception.getReason());
+    }
+
+    @Test
     void shouldReturnAirportByIdWithMethodQuery() {
         when(random.nextInt(4)).thenReturn(0);
         when(airportRepository.findById(10L)).thenReturn(Optional.of(TestUtils.airportServiceGetAirportMockObject()));
@@ -52,6 +70,7 @@ class AirportServiceTest {
 
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
+
     @Test
     void shouldReturnAirportByIdWithHQL() {
         when(random.nextInt(4)).thenReturn(1);
@@ -60,6 +79,7 @@ class AirportServiceTest {
 
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
+
     @Test
     void shouldReturnAirportByIdWithCriteria() {
         when(random.nextInt(4)).thenReturn(2);
@@ -68,6 +88,7 @@ class AirportServiceTest {
 
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
     }
+
     @Test
     void shouldReturnAirportByIdWithNativeQuery() {
         when(random.nextInt(4)).thenReturn(3);
@@ -75,5 +96,17 @@ class AirportServiceTest {
         Airport airport = airportService.findById(10L);
 
         assertEquals(airport, TestUtils.airportServiceGetAirportMockObject());
+    }
+
+    @Test
+    void shouldThrowNotFoundForInvalidId() {
+        when(random.nextInt(4)).thenReturn(1);
+        when(airportRepository.findByIdWithPlanesHQL(5L)).thenReturn(Optional.empty());
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            airportService.findById(5L);
+        });
+
+        assertEquals("Airport not found.", exception.getReason());
     }
 }

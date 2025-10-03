@@ -39,20 +39,13 @@ cd AviationSpringAPI
 ```
 
 ### 2. Build do projeto 
-Dentro da pasta do projeto, execute o seguinte comando para empacotar o projeto corretamente e sem rodar os testes (para que o processo seja mais rápido):
+Dentro da pasta do projeto, execute os seguintes comandos para acessar a pasta `docker` e executar o projeto em containeres docker:
 ```bash
-mvn clean package -DskipTests
-```
-
-### 3. Rodando o projeto
-Agora, basta copiar o projeto empacotado para a pasta "/docker", acessá-la e usar o "docker compose" para construir os containeres necessários para a aplicação funcionar corretamente e iniciá-los:
-```bash
-cp target/airconsultant-0.0.1-SNAPSHOT.jar docker
 cd /docker
 docker compose up --build -d
 ```
 
-### 5. Executando endpoints
+### 3. Executando endpoints
 Caso queira testar um endpoint da aplicação, basta usar este como exemplo:
 ```bash
 curl http://localhost:8090/aviation-airports/kavl
@@ -78,7 +71,7 @@ __Os arquivos de código do projeto estão estruturados da seguinte forma:__
 __Já os arquivos de teste estão estruturados da seguinte forma:__
 * __integration:__ contém o teste de integração do serviço, validando retornos positivos e nulos da AviationAPI durante a operação de busca.
 * __unit:__ contém os pacotes e arquivos de teste de unidade da `controller` e `service` do projeto.
-* __unit.utils:__ aqui, em especial, há uma função de criação e retorno de um objeto de Airport para ser usado nos testes, economizando linhas de código e memória (pois usa o padrão singleton para a criação do objeto).
+* __unit.utils:__ aqui, em especial, há funções de criação e retorno de objetos mockados para os casos de teste, economizando linhas para os casos de testes criados e facilitando o controle de objetos esperados.
 
 ### Endpoints disponíveis
 __GET:__
@@ -131,5 +124,5 @@ __POST:__
 	"effective_date": "11/04/2021"
 }
 ```
-2. http://localhost:8090/airports/cache | Usado para limpar o cache armazenado de aeroportos vindos da base de dados.
-3. http://localhost:8090/aviation-airports/cache | Usado para limpar o cache armazenado de aeroportos vindos de AviationAPI.
+1. http://localhost:8090/airports/cache | Usado para limpar o cache armazenado de aeroportos vindos da base de dados.
+2. http://localhost:8090/aviation-airports/cache | Usado para limpar o cache armazenado de aeroportos vindos de AviationAPI.

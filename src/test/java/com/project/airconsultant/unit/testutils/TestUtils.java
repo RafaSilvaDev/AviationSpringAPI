@@ -8,155 +8,156 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestUtils {
-    private static AviationAirport aviationAirport;
-    private static Airport airport;
 
     public static AviationAirport aviationAirportServiceGetAviationAirportMockObject() {
-        if (aviationAirport == null) {
-            aviationAirport = new AviationAirport();
-            aviationAirport.setSiteNumber("15793.*A");
-            aviationAirport.setType("AIRPORT");
-            aviationAirport.setName("JOHN F KENNEDY INTL");
-            aviationAirport.setIataCode("JFK");
-            aviationAirport.setIcaoCode("KJFK");
-            aviationAirport.setDistrictOffice("NYC");
-            aviationAirport.setState("NY");
-            aviationAirport.setStateFull("NEW YORK");
-            aviationAirport.setCounty("QUEENS");
-            aviationAirport.setCity("NEW YORK");
-            aviationAirport.setOwnership("PU");
-            aviationAirport.setUse("PU");
-            aviationAirport.setManager("CHARLES EVERETT");
-            aviationAirport.setManagerPhone("(718) 244-3501");
-            aviationAirport.setLatitude("40-38-23.7400N");
-            aviationAirport.setLatitudeSeconds("146303.7400N");
-            aviationAirport.setLongitude("073-46-43.2930W");
-            aviationAirport.setLongitudeSeconds("265603.2930W");
-            aviationAirport.setElevation("13");
-            aviationAirport.setMagneticVariation("13W");
-            aviationAirport.setTpa("");
-            aviationAirport.setVfrSectional("NEW YORK");
-            aviationAirport.setBoundaryArtcc("ZNY");
-            aviationAirport.setBoundaryArtccName("NEW YORK");
-            aviationAirport.setResponsibleArtcc("ZNY");
-            aviationAirport.setResponsibleArtccName("NEW YORK");
-            aviationAirport.setFssPhoneNumber("");
-            aviationAirport.setFssPhoneNumberTollFree("1-800-WX-BRIEF");
-            aviationAirport.setNotamFacilityIdent("JFK");
-            aviationAirport.setStatus("O");
-            aviationAirport.setCertificationTypeDate("I E S 05/1973");
-            aviationAirport.setCustomsAirportOfEntry("N");
-            aviationAirport.setMilitaryJointUse("N");
-            aviationAirport.setMilitaryLanding("Y");
-            aviationAirport.setLightingSchedule("");
-            aviationAirport.setBeaconSchedule("SS-SR");
-            aviationAirport.setControlTower("Y");
-            aviationAirport.setUnicom("122.950");
-            aviationAirport.setCtaf("");
-            aviationAirport.setEffectiveDate("11/04/2021");
-        }
+            AviationAirport aviationAirportTest = new AviationAirport();
+            aviationAirportTest.setSiteNumber("15793.*A");
+            aviationAirportTest.setType("AIRPORT");
+            aviationAirportTest.setName("JOHN F KENNEDY INTL");
+            aviationAirportTest.setIataCode("JFK");
+            aviationAirportTest.setIcaoCode("KJFK");
+            aviationAirportTest.setDistrictOffice("NYC");
+            aviationAirportTest.setState("NY");
+            aviationAirportTest.setStateFull("NEW YORK");
+            aviationAirportTest.setCounty("QUEENS");
+            aviationAirportTest.setCity("NEW YORK");
+            aviationAirportTest.setOwnership("PU");
+            aviationAirportTest.setUse("PU");
+            aviationAirportTest.setManager("CHARLES EVERETT");
+            aviationAirportTest.setManagerPhone("(718) 244-3501");
+            aviationAirportTest.setLatitude("40-38-23.7400N");
+            aviationAirportTest.setLatitudeSeconds("146303.7400N");
+            aviationAirportTest.setLongitude("073-46-43.2930W");
+            aviationAirportTest.setLongitudeSeconds("265603.2930W");
+            aviationAirportTest.setElevation("13");
+            aviationAirportTest.setMagneticVariation("13W");
+            aviationAirportTest.setTpa("");
+            aviationAirportTest.setVfrSectional("NEW YORK");
+            aviationAirportTest.setBoundaryArtcc("ZNY");
+            aviationAirportTest.setBoundaryArtccName("NEW YORK");
+            aviationAirportTest.setResponsibleArtcc("ZNY");
+            aviationAirportTest.setResponsibleArtccName("NEW YORK");
+            aviationAirportTest.setFssPhoneNumber("");
+            aviationAirportTest.setFssPhoneNumberTollFree("1-800-WX-BRIEF");
+            aviationAirportTest.setNotamFacilityIdent("JFK");
+            aviationAirportTest.setStatus("O");
+            aviationAirportTest.setCertificationTypeDate("I E S 05/1973");
+            aviationAirportTest.setCustomsAirportOfEntry("N");
+            aviationAirportTest.setMilitaryJointUse("N");
+            aviationAirportTest.setMilitaryLanding("Y");
+            aviationAirportTest.setLightingSchedule("");
+            aviationAirportTest.setBeaconSchedule("SS-SR");
+            aviationAirportTest.setControlTower("Y");
+            aviationAirportTest.setUnicom("122.950");
+            aviationAirportTest.setCtaf("");
+            aviationAirportTest.setEffectiveDate("11/04/2021");
 
-        return aviationAirport;
+        return aviationAirportTest;
     }
 
     public static Airport airportServiceGetAirportMockObject() {
-        if (airport == null) {
-            airport = new Airport();
-            airport.setId(1L);
-            airport.setSiteNumber("15793.*A");
-            airport.setType("AIRPORT");
-            airport.setName("JOHN F KENNEDY INTL");
-            airport.setIataCode("JFK");
-            airport.setIcaoCode("KJFK");
-            airport.setDistrictOffice("NYC");
-            airport.setState("NY");
-            airport.setStateFull("NEW YORK");
-            airport.setCounty("QUEENS");
-            airport.setCity("NEW YORK");
-            airport.setOwnership("PU");
-            airport.setUse("PU");
-            airport.setManager("CHARLES EVERETT");
-            airport.setManagerPhone("(718) 244-3501");
-            airport.setLatitude("40-38-23.7400N");
-            airport.setLatitudeSeconds("146303.7400N");
-            airport.setLongitude("073-46-43.2930W");
-            airport.setLongitudeSeconds("265603.2930W");
-            airport.setElevation("13");
-            airport.setMagneticVariation("13W");
-            airport.setTpa("");
-            airport.setVfrSectional("NEW YORK");
-            airport.setBoundaryArtcc("ZNY");
-            airport.setBoundaryArtccName("NEW YORK");
-            airport.setResponsibleArtcc("ZNY");
-            airport.setResponsibleArtccName("NEW YORK");
-            airport.setFssPhoneNumber("");
-            airport.setFssPhoneNumberTollFree("1-800-WX-BRIEF");
-            airport.setNotamFacilityIdent("JFK");
-            airport.setStatus("O");
-            airport.setCertificationTypeDate("I E S 05/1973");
-            airport.setCustomsAirportOfEntry("N");
-            airport.setMilitaryJointUse("N");
-            airport.setMilitaryLanding("Y");
-            airport.setLightingSchedule("");
-            airport.setBeaconSchedule("SS-SR");
-            airport.setControlTower("Y");
-            airport.setUnicom("122.950");
-            airport.setCtaf("");
-            airport.setEffectiveDate("11/04/2021");
-            airport.setPlanes(generateTestPlanes());
-        }
+            List<Plane> testPlanes = generateTestPlanes();
 
-        return airport;
+            Airport airportTest = new Airport();
+            airportTest.setId(10L);
+            airportTest.setSiteNumber("15793.*A");
+            airportTest.setType("AIRPORT");
+            airportTest.setName("JOHN F KENNEDY INTL");
+            airportTest.setIataCode("JFK");
+            airportTest.setIcaoCode("KJFK");
+            airportTest.setDistrictOffice("NYC");
+            airportTest.setState("NY");
+            airportTest.setStateFull("NEW YORK");
+            airportTest.setCounty("QUEENS");
+            airportTest.setCity("NEW YORK");
+            airportTest.setOwnership("PU");
+            airportTest.setUse("PU");
+            airportTest.setManager("CHARLES EVERETT");
+            airportTest.setManagerPhone("(718) 244-3501");
+            airportTest.setLatitude("40-38-23.7400N");
+            airportTest.setLatitudeSeconds("146303.7400N");
+            airportTest.setLongitude("073-46-43.2930W");
+            airportTest.setLongitudeSeconds("265603.2930W");
+            airportTest.setElevation("13");
+            airportTest.setMagneticVariation("13W");
+            airportTest.setTpa("");
+            airportTest.setVfrSectional("NEW YORK");
+            airportTest.setBoundaryArtcc("ZNY");
+            airportTest.setBoundaryArtccName("NEW YORK");
+            airportTest.setResponsibleArtcc("ZNY");
+            airportTest.setResponsibleArtccName("NEW YORK");
+            airportTest.setFssPhoneNumber("");
+            airportTest.setFssPhoneNumberTollFree("1-800-WX-BRIEF");
+            airportTest.setNotamFacilityIdent("JFK");
+            airportTest.setStatus("O");
+            airportTest.setCertificationTypeDate("I E S 05/1973");
+            airportTest.setCustomsAirportOfEntry("N");
+            airportTest.setMilitaryJointUse("N");
+            airportTest.setMilitaryLanding("Y");
+            airportTest.setLightingSchedule("");
+            airportTest.setBeaconSchedule("SS-SR");
+            airportTest.setControlTower("Y");
+            airportTest.setUnicom("122.950");
+            airportTest.setCtaf("");
+            airportTest.setEffectiveDate("11/04/2021");
+            airportTest.setPlanes(testPlanes);
+
+        return airportTest;
+    }
+
+    public static Airport airportServiceSaveAirportMockObject() {
+        Airport airportSaveTest = airportServiceGetAirportMockObject();
+        airportSaveTest.setPlanes(new ArrayList<>());
+        return airportSaveTest;
     }
 
     public static List<Object[]> airportServiceGetAirportNativeQueryMockObject() {
-        if (airport == null) {
-            airport = airportServiceGetAirportMockObject();
-        }
+        Airport airportTest = airportServiceGetAirportMockObject();
         List<Object[]> rows = new ArrayList<>();
-        for (Plane plane : airport.getPlanes()) {
+
+        for (Plane plane : airportTest.getPlanes()) {
             Object[] row = new Object[]{
-                    airport.getId(),
-                    airport.getSiteNumber(),
-                    airport.getType(),
-                    airport.getName(),
-                    airport.getIataCode(),
-                    airport.getIcaoCode(),
-                    airport.getDistrictOffice(),
-                    airport.getState(),
-                    airport.getStateFull(),
-                    airport.getCounty(),
-                    airport.getCity(),
-                    airport.getOwnership(),
-                    airport.getUse(),
-                    airport.getManager(),
-                    airport.getManagerPhone(),
-                    airport.getLatitude(),
-                    airport.getLatitudeSeconds(),
-                    airport.getLongitude(),
-                    airport.getLongitudeSeconds(),
-                    airport.getElevation(),
-                    airport.getMagneticVariation(),
-                    airport.getTpa(),
-                    airport.getVfrSectional(),
-                    airport.getBoundaryArtcc(),
-                    airport.getBoundaryArtccName(),
-                    airport.getResponsibleArtcc(),
-                    airport.getResponsibleArtccName(),
-                    airport.getFssPhoneNumber(),
-                    airport.getFssPhoneNumberTollFree(),
-                    airport.getNotamFacilityIdent(),
-                    airport.getStatus(),
-                    airport.getCertificationTypeDate(),
-                    airport.getCustomsAirportOfEntry(),
-                    airport.getMilitaryJointUse(),
-                    airport.getMilitaryLanding(),
-                    airport.getLightingSchedule(),
-                    airport.getBeaconSchedule(),
-                    airport.getControlTower(),
-                    airport.getUnicom(),
-                    airport.getCtaf(),
-                    airport.getEffectiveDate(),
+                    airportTest.getId(),
+                    airportTest.getSiteNumber(),
+                    airportTest.getType(),
+                    airportTest.getName(),
+                    airportTest.getIataCode(),
+                    airportTest.getIcaoCode(),
+                    airportTest.getDistrictOffice(),
+                    airportTest.getState(),
+                    airportTest.getStateFull(),
+                    airportTest.getCounty(),
+                    airportTest.getCity(),
+                    airportTest.getOwnership(),
+                    airportTest.getUse(),
+                    airportTest.getManager(),
+                    airportTest.getManagerPhone(),
+                    airportTest.getLatitude(),
+                    airportTest.getLatitudeSeconds(),
+                    airportTest.getLongitude(),
+                    airportTest.getLongitudeSeconds(),
+                    airportTest.getElevation(),
+                    airportTest.getMagneticVariation(),
+                    airportTest.getTpa(),
+                    airportTest.getVfrSectional(),
+                    airportTest.getBoundaryArtcc(),
+                    airportTest.getBoundaryArtccName(),
+                    airportTest.getResponsibleArtcc(),
+                    airportTest.getResponsibleArtccName(),
+                    airportTest.getFssPhoneNumber(),
+                    airportTest.getFssPhoneNumberTollFree(),
+                    airportTest.getNotamFacilityIdent(),
+                    airportTest.getStatus(),
+                    airportTest.getCertificationTypeDate(),
+                    airportTest.getCustomsAirportOfEntry(),
+                    airportTest.getMilitaryJointUse(),
+                    airportTest.getMilitaryLanding(),
+                    airportTest.getLightingSchedule(),
+                    airportTest.getBeaconSchedule(),
+                    airportTest.getControlTower(),
+                    airportTest.getUnicom(),
+                    airportTest.getCtaf(),
+                    airportTest.getEffectiveDate(),
                     plane.getId(),
                     plane.getCode(),
                     plane.getModel()
@@ -169,7 +170,7 @@ public class TestUtils {
 
     private static List<Plane> generateTestPlanes() {
         List<Plane> planes = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 5; i++) {
             Plane plane = new Plane();
             plane.setId((long) i);
             plane.setModel("Test Model " + i);
